@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import { Component } from 'react'
 
 import { Logger } from './utils/loggerDataDog'
 
@@ -17,7 +17,6 @@ class CheckoutCheckingInformations extends Component<{}, CheckoutCheckingInforma
     const postalCode = orderForm.shippingData.address.postalCode
     console.log(postalCode, orderForm)
     logger.info(`CHECKOUT_DATA_INFORMATION ${postalCode}`, JSON.stringify(orderForm))
-    console.log('entrou no setOrderForm 2 ', orderForm)
   }
 
   componentDidMount() {
