@@ -42,11 +42,16 @@ interface OrderForm {
   id: string
   items: OrderFormItem[]
   marketingData: MarketingData
+  shippingData: ShippingData
   totalizers: Totalizer[]
   value: number
   messages: OrderFormMessages
 }
-
+interface ShippingData {
+  address: {
+    postalCode: string
+  }
+}
 interface MarketingData {
   coupon: string
 }

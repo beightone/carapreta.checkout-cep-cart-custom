@@ -1,14 +1,10 @@
 import React, { Component } from 'react'
 
-import CustomButton from './components/CustomButton'
+import { Logger } from './utils/loggerDataDog'
 
-class CheckoutButtonExample extends Component<{}, CheckoutButtonExampleState> {
-  /**
-   * This component is the one that is referenced in the extension point. To use it
-   * as an example, we add an event listener, which updates the state every time the
-   * order form changes. This order form is then passed to its children so as to render
-   * a table with the items.
-   */
+const logger = new Logger()
+
+class CheckoutCheckingInformations extends Component<{}, CheckoutCheckingInformationsState> {
   constructor(props: any) {
     super(props)
     this.state = {
@@ -18,6 +14,10 @@ class CheckoutButtonExample extends Component<{}, CheckoutButtonExampleState> {
 
   setOrderForm = (_: any, orderForm: OrderForm) => {
     this.setState({ orderForm })
+    const postalCode = orderForm.shippingData.address.postalCode
+    console.log(postalCode, orderForm)
+    logger.info(`CHECKOUT_DATA_INFORMATION ${postalCode}`, JSON.stringify(orderForm))
+    console.log('entrou no setOrderForm 2 ', orderForm)
   }
 
   componentDidMount() {
@@ -27,18 +27,13 @@ class CheckoutButtonExample extends Component<{}, CheckoutButtonExampleState> {
   componentWillUnmount() {
     $(window).off('orderFormUpdated.vtex', this.setOrderForm)
   }
-
   render() {
-    console.log(window.vtex.i18n.getLocale())
-
-    return <CustomButton {...this.state.orderForm!} />
+    return null
   }
 }
 
-interface CheckoutButtonExampleProps {}
-
-interface CheckoutButtonExampleState {
+interface CheckoutCheckingInformationsState {
   orderForm: OrderForm | null
 }
 
-export default CheckoutButtonExample
+export default CheckoutCheckingInformations
